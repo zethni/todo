@@ -32,7 +32,7 @@
 			<option value="urgent">Urgent</option>
 		</select></label
 	>
-	<input type="date" name="dueDate" id="dueDate" />
+	<label for="dueDate">Due Date<input type="date" name="dueDate" id="dueDate" /> </label>
 	<button type="submit">Add Task</button>
 </form>
 
@@ -40,6 +40,19 @@
 	form {
 		display: flex;
 		flex-direction: column;
+		gap: 1rem;
+		font-size: 16px;
+	}
+	label {
+		display: grid;
+		grid-template-columns: 1fr 2fr;
 		gap: 0.5rem;
+		align-items: center;
+		border: 1px solid rgba(37, 78, 112, 0.03);
+		background: white;
+		box-shadow: 0 2px 4px rgba(37, 78, 112, 0.5);
+
+		padding: 1rem;
+		border-radius: 8px;
 	}
 </style>
