@@ -14,6 +14,10 @@
 		<a class="button" href="/tasks">Tasks</a>
 	</nav>
 
+	<div style="background: #990000; color: white; padding: 1rem; font-size:30px;">
+		THIS DOESN'T ACTUALLY DO ANYTHING YET - JUST GETTING THINGS SET UP
+	</div>
+
 	{#if data.user}
 		<p>Logged in as {data.user.name}</p>
 		{@render children()}
