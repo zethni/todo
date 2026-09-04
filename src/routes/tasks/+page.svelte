@@ -1,5 +1,6 @@
 <script>
 	import { resolve } from '$app/paths';
+	import { onMount } from 'svelte';
 	let { data } = $props();
 
 	let tasksState = $state(data.tasks);
@@ -12,6 +13,9 @@
 		{ title: 'Due Date', key: 'dueDate' },
 		{ title: 'Description', key: 'description' }
 	];
+	onMount(() => {
+		sortTasks('dueDate', 'asc');
+	});
 
 	/**
 	 *  @param {string} component
@@ -64,32 +68,37 @@
 			case 'effort':
 			case 'priority':
 				if (direction == 'asc') {
-					tasks.sort((a, b) => a[category] - b[category]);
+					tasks.sort((a, b) => /** @type {any} */ (a)[category] - /** @type {any} */ (b)[category]);
 				} else {
-					tasks.sort((a, b) => b[category] - a[category]);
+					tasks.sort((a, b) => /** @type {any} */ (b)[category] - /** @type {any} */ (a)[category]);
 				}
 				break;
 			default:
 				if (direction == 'asc') {
 					tasks.sort((a, b) => {
-						if (a[category] < b[category]) return -1;
-						if (a[category] > b[category]) return 1;
+						const av = /** @type {any} */ (a)[category];
+						const bv = /** @type {any} */ (b)[category];
+						if (av < bv) return -1;
+						if (av > bv) return 1;
 						return 0;
 					});
 				} else {
 					tasks.sort((a, b) => {
-						if (a[category] > b[category]) return -1;
-						if (a[category] < b[category]) return 1;
+						const av = /** @type {any} */ (a)[category];
+						const bv = /** @type {any} */ (b)[category];
+						if (av > bv) return -1;
+						if (av < bv) return 1;
 						return 0;
 					});
 				}
 				break;
 		}
+		if (document.querySelectorAll('.sort-arrow.active')) {
+			const activeSorts = document.querySelectorAll('.sort-arrow.active');
+			activeSorts.forEach((el) => el.classList.remove('active'));
+		}
 
-		const activeSorts = document.querySelectorAll('.sort-arrow.active');
-		activeSorts.forEach((el) => el.classList.remove('active'));
-		console.log(document.getElementById(`sort-${direction}-${category}`));
-		document.getElementById(`sort-${direction}-${category}`).classList.add('active');
+		document.getElementById(`sort-${direction}-${category}`)?.classList.add('active');
 	}
 </script>
 
@@ -107,7 +116,7 @@
 						<br />
 						<a
 							href="#top"
-							class={['sort-arrow', component.key == 'title' ? 'active' : '']}
+							class="sort-arrow active"
 							id="sort-asc-{component.key}"
 							on:click|preventDefault={() => sortTasks(component.key, 'asc')}
 						>
@@ -129,7 +138,15 @@
 			{#each tasks as task (task.id)}
 				<tr>
 					{#each taskComponents as component (component.key)}
-						<td>{getComponentValue(component.key, task[component.key])}</td>
+						{#if component.key == 'title'}
+							<td
+								><a href={resolve(`/tasks/${task.id}`)}
+									>{getComponentValue(component.key, task[component.key])}</a
+								></td
+							>
+						{:else}
+							<td>{getComponentValue(component.key, /** @type {any} */ (task)[component.key])}</td>
+						{/if}
 					{/each}
 				</tr>
 			{/each}
