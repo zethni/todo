@@ -1,9 +1,12 @@
+import type User from '$lib/types/User';
+
 export default interface Task {
 	id: number;
 	title: string;
 	effort: number;
 	priority: number;
-	dueDate: Date;
+	dueDate?: string | null;
 	description?: string;
-	completed: boolean;
+	completed?: boolean;
+	completedBy?: User[];
 }

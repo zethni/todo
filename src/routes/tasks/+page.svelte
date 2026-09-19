@@ -1,11 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
-	import type Task from '$lib/types/task';
-	let { data } = $props();
+	import { tasks } from '$lib/store/tasks.js';
 
+	let t = $state($state.snapshot($tasks)); // this feels wrong but works
+
+	/*
 	let tasksState = $state(data.tasks);
 	let tasks = $derived(tasksState) as Task[];
+	console.log({ tasks });
+	*/
 
 	let taskComponents = [
 		{ title: 'Task', key: 'title' },
@@ -23,7 +27,7 @@
 	 *  @param {any} value
 	 *  @returns {any}
 	 */
-	function getComponentValue(component, value) {
+	function getComponentValue(component: string, value: number) {
 		switch (component) {
 			case 'effort':
 				return getEffortName(value);
@@ -35,7 +39,7 @@
 	}
 
 	/** @param {number} effort @returns {string} */
-	function getEffortName(effort) {
+	function getEffortName(effort: number) {
 		switch (effort) {
 			case 1:
 				return 'Small';
@@ -48,7 +52,7 @@
 		}
 	}
 	/** @param {number} priority @returns {string} */
-	function getPriorityName(priority) {
+	function getPriorityName(priority: number) {
 		switch (priority) {
 			case 1:
 				return 'Low';
@@ -56,6 +60,8 @@
 				return 'Medium';
 			case 3:
 				return 'High';
+			case 4:
+				return 'Urgent';
 			default:
 				return 'Unknown';
 		}
@@ -64,19 +70,19 @@
 	/** @param {string} category
 	 *  @param {string} direction
 	 */
-	function sortTasks(category, direction = 'asc') {
+	function sortTasks(category: string, direction: string = 'asc') {
 		switch (category) {
 			case 'effort':
 			case 'priority':
 				if (direction == 'asc') {
-					tasks.sort((a, b) => /** @type {any} */ a[category] - /** @type {any} */ b[category]);
+					t.sort((a, b) => /** @type {any} */ a[category] - /** @type {any} */ b[category]);
 				} else {
-					tasks.sort((a, b) => /** @type {any} */ b[category] - /** @type {any} */ a[category]);
+					t.sort((a, b) => /** @type {any} */ b[category] - /** @type {any} */ a[category]);
 				}
 				break;
 			default:
 				if (direction == 'asc') {
-					tasks.sort((a, b) => {
+					t.sort((a, b) => {
 						const av = /** @type {any} */ a[category];
 						const bv = /** @type {any} */ b[category];
 						if (av < bv) return -1;
@@ -84,7 +90,7 @@
 						return 0;
 					});
 				} else {
-					tasks.sort((a, b) => {
+					t.sort((a, b) => {
 						const av = /** @type {any} */ a[category];
 						const bv = /** @type {any} */ b[category];
 						if (av > bv) return -1;
@@ -94,6 +100,7 @@
 				}
 				break;
 		}
+
 		if (document.querySelectorAll('.sort-arrow.active')) {
 			const activeSorts = document.querySelectorAll('.sort-arrow.active');
 			activeSorts.forEach((el) => el.classList.remove('active'));
@@ -105,7 +112,7 @@
 
 <h1>Tasks</h1>
 
-{#if tasks.length === 0}
+{#if t.length === 0}
 	<p>No tasks available.</p>
 {:else}
 	<table>
@@ -136,7 +143,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each tasks as task (task.id)}
+			{#each t as task (task.id)}
 				<tr>
 					{#each taskComponents as component (component.key)}
 						{#if component.key == 'title'}

@@ -1,3 +1,4 @@
+/*
 import { tasks } from './fakedata.js';
 
 export function load() {
@@ -5,3 +6,4 @@ export function load() {
 		tasks: tasks
 	};
 }
+*/

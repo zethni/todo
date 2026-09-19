@@ -1,4 +1,6 @@
-export const tasks = [
+import { writable } from 'svelte/store';
+
+export const tasks = writable([
 	{
 		id: 1,
 		title: 'Task 1',
@@ -15,7 +17,6 @@ export const tasks = [
 		effort: 1,
 		dueDate: null
 	},
-	/* FILL THIS WITH MORE TASKS */
 	{
 		id: 3,
 		title: 'Task 3',
@@ -80,4 +81,4 @@ export const tasks = [
 		effort: 3,
 		dueDate: '2027-01-20'
 	}
-];
+]);
