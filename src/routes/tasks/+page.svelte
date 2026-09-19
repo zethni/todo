@@ -1,10 +1,11 @@
-<script>
+<script lang="ts">
 	import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
+	import type Task from '$lib/types/task';
 	let { data } = $props();
 
 	let tasksState = $state(data.tasks);
-	let tasks = $derived(tasksState);
+	let tasks = $derived(tasksState) as Task[];
 
 	let taskComponents = [
 		{ title: 'Task', key: 'title' },
@@ -68,24 +69,24 @@
 			case 'effort':
 			case 'priority':
 				if (direction == 'asc') {
-					tasks.sort((a, b) => /** @type {any} */ (a)[category] - /** @type {any} */ (b)[category]);
+					tasks.sort((a, b) => /** @type {any} */ a[category] - /** @type {any} */ b[category]);
 				} else {
-					tasks.sort((a, b) => /** @type {any} */ (b)[category] - /** @type {any} */ (a)[category]);
+					tasks.sort((a, b) => /** @type {any} */ b[category] - /** @type {any} */ a[category]);
 				}
 				break;
 			default:
 				if (direction == 'asc') {
 					tasks.sort((a, b) => {
-						const av = /** @type {any} */ (a)[category];
-						const bv = /** @type {any} */ (b)[category];
+						const av = /** @type {any} */ a[category];
+						const bv = /** @type {any} */ b[category];
 						if (av < bv) return -1;
 						if (av > bv) return 1;
 						return 0;
 					});
 				} else {
 					tasks.sort((a, b) => {
-						const av = /** @type {any} */ (a)[category];
-						const bv = /** @type {any} */ (b)[category];
+						const av = /** @type {any} */ a[category];
+						const bv = /** @type {any} */ b[category];
 						if (av > bv) return -1;
 						if (av < bv) return 1;
 						return 0;
@@ -161,6 +162,6 @@
 		text-decoration: none;
 	}
 	.sort-arrow.active {
-		color: red;
+		color: #990000;
 	}
 </style>
