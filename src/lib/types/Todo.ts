@@ -6,7 +6,9 @@ export default interface Todo {
 	effort: number;
 	priority: number;
 	dueDate?: string | null;
-	description?: string;
+	notes?: string;
 	completed?: boolean;
 	completedBy?: User[];
 }
+
+//

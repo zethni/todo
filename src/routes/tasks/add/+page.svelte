@@ -8,7 +8,7 @@
 		// You can now handle the form data as needed, e.g., send it to a server
 		const newTask: Task = {
 			title: formData.get('title') as string,
-			description: formData.get('description') as string,
+			notes: formData.get('notes') as string,
 			effort: (formData.get('effort') * 1) as number,
 			priority: (formData.get('priority') * 1) as number,
 			dueDate: formData.get('dueDate') as string,
@@ -26,9 +26,9 @@
 		<input type="text" name="title" id="title" required /></label
 	>
 
-	<label for="description"
-		>Description
-		<textarea name="description" id="description" required></textarea></label
+	<label for="notes"
+		>notes
+		<textarea name="notes" id="notes" required></textarea></label
 	>
 	<label for="effort"
 		>Effort

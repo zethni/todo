@@ -2,7 +2,7 @@
 	import { tasks } from '$lib/store/tasks.js';
 
 	let { data } = $props();
-	console.log(data.instruments);
+
 	// let items = $items;
 </script>
 

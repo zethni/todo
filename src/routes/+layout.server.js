@@ -1,4 +1,6 @@
 export function load() {
+	return;
+
 	return {
 		user: {
 			id: 1,

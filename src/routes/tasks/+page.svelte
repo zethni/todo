@@ -16,7 +16,7 @@
 		{ title: 'Effort', key: 'effort' },
 		{ title: 'Priority', key: 'priority' },
 		{ title: 'Due Date', key: 'dueDate' },
-		{ title: 'Description', key: 'description' }
+		{ title: 'notes', key: 'notes' }
 	];
 	onMount(() => {
 		sortTasks('dueDate', 'asc');

@@ -6,7 +6,9 @@
 
 	import { tasks } from '$lib/store/tasks.js';
 
-	let { data, children } = $props();
+	let { data, children, form } = $props();
+
+	let hidePassword = $state(false);
 
 	setContext('taskFunctions', { addTask });
 	function addTask(task: Task) {
@@ -15,6 +17,9 @@
 	function addTestData() {
 		tasks.update((n) => [...n, { id: 99, title: 'apple' }]);
 	}
+
+	import { page } from '$app/state';
+	const isPWReset = page.url.searchParams.has('pwreset');
 </script>
 
 <svelte:head>
@@ -36,6 +41,29 @@
 		{@render children()}
 		<button onclick={addTestData}> Add Apple </button>
 	{:else}
-		<p>Not logged in</p>
+		{#if form?.error}
+			<p style="color: red;">{form.error}</p>
+		{/if}
+		{#if isPWReset}
+			<p style="color: green;">Please check your email for a password reset message.</p>
+		{:else}
+			<form method="post">
+				<label for="email"
+					>Email
+					<input type="email" name="email" id="email" required />
+				</label>
+				{#if !hidePassword}
+					<label for="password"
+						>Password
+						<input type="password" name="password" id="password" required />
+					</label>
+				{/if}
+				<label>
+					<input name="forgotPassword" type="checkbox" bind:checked={hidePassword} /> Forgot Password</label
+				>
+
+				<button type="submit">Login</button>
+			</form>
+		{/if}
 	{/if}
 </main>
