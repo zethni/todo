@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { todos } from '../fakedata.js';
+import { todos } from '../../fakedata.js';
 
 export function load({ params }) {
 	const taskId = parseInt(params.id, 10);
