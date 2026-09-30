@@ -58,7 +58,7 @@
 						<input type="password" name="password" id="password" required />
 					</label>
 				{/if}
-				<label>
+				<label style="display: none">
 					<input name="forgotPassword" type="checkbox" bind:checked={hidePassword} /> Forgot Password</label
 				>
 

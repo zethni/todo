@@ -1,6 +1,10 @@
 import { fail } from '@sveltejs/kit';
 
 export const actions = {
+	/*
+	 * TODO: REENGINEER THIS IF YOU ACTUALLY NEED PW RESETS, ETC, FOLLOWING THE PKCE FLOW HERE
+	 * https://supabase.com/docs/guides/auth/passwords?queryGroups=flow&flow=pkce&queryGroups=framework&framework=sveltekit
+	 */
 	default: async ({ request }) => {
 		const formData = await request.formData();
 		const email = formData.get('email');
