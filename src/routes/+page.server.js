@@ -16,10 +16,9 @@ export const actions = {
 			});
 
 			return fail(400, { error: 'Please check your email for a password reset message.' });
-			return;
 		}
 
-		// m^Dr@h@]Gp9=jF2
+		// m^Dr@h@]Gp9=jF2 <- local pw for me
 		const { data, error } = await supabase.auth.signInWithPassword({
 			email: email,
 			password: password
