@@ -19,6 +19,7 @@ export const actions = {
 			return;
 		}
 
+		// m^Dr@h@]Gp9=jF2
 		const { data, error } = await supabase.auth.signInWithPassword({
 			email: email,
 			password: password
@@ -26,6 +27,7 @@ export const actions = {
 		if (error) {
 			return fail(400, { error: error.message });
 		}
+		return { success: true, data: data };
 	}
 	// resetPassword: async ({ request }) => {
 	// 	const formData = await request.formData();

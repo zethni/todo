@@ -36,8 +36,8 @@
 		THIS DOESN'T ACTUALLY DO ANYTHING YET - JUST GETTING THINGS SET UP
 	</div>
 
-	{#if data.user}
-		<p>Logged in as {data.user.name}</p>
+	{#if data.user.identities[0].email}
+		<p>Logged in as {data.user.identities[0].email}</p>
 		{@render children()}
 		<button onclick={addTestData}> Add Apple </button>
 	{:else}

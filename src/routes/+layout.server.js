@@ -1,10 +1,12 @@
-export function load() {
-	return;
+import { supabase } from '$lib/supabaseClient';
 
-	return {
-		user: {
-			id: 1,
-			name: 'John Doe'
-		}
-	};
+export async function load() {
+	const { data } = await supabase.auth.getSession();
+	const session = data.session;
+	console.log({ session });
+	if (!session) {
+		return { user: null };
+	} else {
+		return { user: session.user };
+	}
 }
