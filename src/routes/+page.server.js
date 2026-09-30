@@ -23,6 +23,8 @@ export const actions = {
 		}
 
 		// m^Dr@h@]Gp9=jF2 <- local pw for me
+		console.log('AUTH');
+		console.log(supabase.auth);
 		const { data, error } = await supabase.auth.signInWithPassword({
 			email: email,
 			password: password
