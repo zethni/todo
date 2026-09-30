@@ -1,8 +1,8 @@
 import { supabase } from '$lib/supabaseClient';
 
 export async function load() {
-	const { data } = await supabase.auth.getSession();
-	const session = data.session;
+	const { data } = await supabase.auth.getUser();
+	const session = data;
 	console.log({ session });
 	if (!session) {
 		return { user: null };

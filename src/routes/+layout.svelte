@@ -30,14 +30,14 @@
 		THIS DOESN'T ACTUALLY DO ANYTHING YET - JUST GETTING THINGS SET UP
 	</div>
 
-	{#if data.user && data.user.identities[0].email}
+	{#if data.user && data.user.email}
 		<nav>
 			<a class="button" href={resolve('/')}>Home</a>
 			<a class="button" href={resolve('/tasks/add')}>Add Task</a>
 			<a class="button" href={resolve('/tasks')}>Tasks</a>
 		</nav>
 
-		<p>Logged in as {data.user.identities[0].email}</p>
+		<p>Logged in as {data.user.email}</p>
 		{@render children()}
 		<button onclick={addTestData}> Add Apple </button>
 	{:else}
