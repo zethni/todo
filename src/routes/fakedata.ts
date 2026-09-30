@@ -1,5 +1,5 @@
 import type Todo from '$lib/types/Todo';
-export const tasks: Todo[] = [
+export const todos: Todo[] = [
 	{
 		id: 1,
 		itemID: 1,
