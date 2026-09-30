@@ -1,8 +1,8 @@
 import type User from '$lib/types/User';
 
-export default interface Task {
+export default interface Todo {
 	id: number;
-	title: string;
+	itemID: number;
 	effort: number;
 	priority: number;
 	dueDate?: string | null;
